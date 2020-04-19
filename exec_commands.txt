@@ -1,0 +1,75 @@
+-----------------Word Count----------------------
+
+4 mappers and 2 reducers
+
+hadoop jar /home/cse587/hadoop-3.1.2/share/hadoop/tools/lib/hadoop-streaming-3.1.2.jar -Dmapred.map.tasks=4 -Dmapred.reduce.tasks=2 -file /home/cse587/wordcount/map1.py -mapper /home/cse587/wordcount/map1.py -file /home/cse587/wordcount/red1.py -reducer /home/cse587/wordcount/red1.py -input /home/demopy/ -output /home/word_output
+
+hdfs dfs -cat /home/word_output/*
+
+hdfs dfs -copyToLocal /home/word_output /home/cse587/
+
+###############################################################
+
+-----------------Trigrams----------------------
+
+3 Mappers and 2 reducers
+
+hadoop jar /home/cse587/hadoop-3.1.2/share/hadoop/tools/lib/hadoop-streaming-3.1.2.jar -Dmapred.map.tasks=3 -Dmapred.reduce.tasks=2 -file /home/cse587/trigrams/trigramsMapper1.py -mapper /home/cse587/trigrams/trigramsMapper1.py -file /home/cse587/trigrams/trigramsReducer1.py -reducer /home/cse587/trigrams/trigramsReducer1.py -input /home/demopy/ -output /home/trigrampart1
+
+hdfs dfs -ls /home/trigrampart1/*
+
+1 Mapper and 1 reducer to find out global top 10
+
+hadoop jar /home/cse587/hadoop-3.1.2/share/hadoop/tools/lib/hadoop-streaming-3.1.2.jar -file /home/cse587/trigrams/trigramsMapper2.py -mapper /home/cse587/trigrams/trigramsMapper2.py -file /home/cse587/trigrams/trigramsReducer2.py -reducer /home/cse587/trigrams/trigramsReducer2.py -input /home/trigrampart1 -output /home/trigram_output
+
+hdfs dfs -cat /home/trigram_output/*
+
++++hdfs dfs -copyToLocal /home/trigram_output /home/cse587/
+
+++cat /home/cse587/trigram_output/*
+
+###############################################################
+
+-----------------Inverted Index----------------------
+
+5 mappers and 2 reducers
+
+hadoop jar /home/cse587/hadoop-3.1.2/share/hadoop/tools/lib/hadoop-streaming-3.1.2.jar -Dmapred.map.tasks=5 -Dmapred.reduce.tasks=2 -file /home/cse587/Inverted_index/mapper3.py -mapper /home/cse587/Inverted_index/mapper3.py -file /home/cse587/Inverted_index/reducer3.py -reducer /home/cse587/Inverted_index/reducer3.py -input /home/demopy/ -output /home/inv_output
+
+hdfs dfs -cat /home/inv_output/*
+
+++hdfs dfs -copyToLocal /home/inv_output /home/cse587/
+
+++cat /home/cse587/inv_output/*
+
+###############################################################
+
+-----------------Table Join----------------------
+
+1 mapper and 1 reducer
+
+hadoop jar /home/cse587/hadoop-3.1.2/share/hadoop/tools/lib/hadoop-streaming-3.1.2.jar -file /home/cse587/DIC_tablejoin/mapper4.py  -mapper /home/cse587/DIC_tablejoin/mapper4.py -file /home/cse587/DIC_tablejoin/reducer4.py -reducer /home/cse587/DIC_tablejoin/reducer4.py -input /home/part4/ -output /home/table_output
+
+hdfs dfs -cat /home/table_output/*
+
+++hdfs dfs -copyToLocal /home/table_output /home/cse587/
+
+++cat /home/cse587/table_output/*
+
+###############################################################
+
+
+
+-----------------KNN Execution command----------------------
+
+5 mappers and 1 reducer
+
+hadoop jar /home/cse587/hadoop-3.1.2/share/hadoop/tools/lib/hadoop-streaming-3.1.2.jar -Dmapred.map.tasks=5 -Dmapred.reduce.tasks=1 -file /home/cse587/knn/knnMapper.py -mapper /home/cse587/knn/knnMapper.py -file /home/cse587/knn/knnReducer.py -reducer /home/cse587/knn/knnReducer.py -input /home/knn_input/Train.csv -output /home/knn_output
+
+hdfs dfs -cat /home/knn_output/*
+
+++hdfs dfs -copyToLocal /home/knn_output /home/cse587/
+
+++cat /home/cse587/knn_output/*
+
+###############################################################
